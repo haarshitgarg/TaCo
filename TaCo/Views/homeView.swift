@@ -27,7 +27,7 @@ struct HomeView: View {
                         Rectangle().fill(.blue)
                     }
                     
-                    NavigationLink(destination: DummyView()) {
+                    NavigationLink(destination: NavView()) {
                         Rectangle().fill(.yellow)
                     }
                 }

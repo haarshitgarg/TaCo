@@ -18,6 +18,10 @@
 		E4312F942C26D41A006AA24C /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4312F932C26D41A006AA24C /* homeView.swift */; };
 		E4312F972C26E747006AA24C /* NFCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4312F962C26E747006AA24C /* NFCView.swift */; };
 		E4312F9A2C26EB76006AA24C /* NFCReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4312F992C26EB76006AA24C /* NFCReader.swift */; };
+		E45989CE2C35B3090013B1C5 /* NavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45989CD2C35B3090013B1C5 /* NavView.swift */; };
+		E45989D02C35B4890013B1C5 /* AudioPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45989CF2C35B4890013B1C5 /* AudioPosition.swift */; };
+		E45989D22C35B6AB0013B1C5 /* SpatialSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45989D12C35B6AB0013B1C5 /* SpatialSound.swift */; };
+		E4AB60992C36FAD1005748AD /* countdown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E4AB60982C36FAD1005748AD /* countdown.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +58,10 @@
 		E4312F962C26E747006AA24C /* NFCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCView.swift; sourceTree = "<group>"; };
 		E4312F982C26E9A9006AA24C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E4312F992C26EB76006AA24C /* NFCReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReader.swift; sourceTree = "<group>"; };
+		E45989CD2C35B3090013B1C5 /* NavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavView.swift; sourceTree = "<group>"; };
+		E45989CF2C35B4890013B1C5 /* AudioPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPosition.swift; sourceTree = "<group>"; };
+		E45989D12C35B6AB0013B1C5 /* SpatialSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialSound.swift; sourceTree = "<group>"; };
+		E4AB60982C36FAD1005748AD /* countdown.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = countdown.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +89,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E4312F582C26D2EE006AA24C = {
+		E4282F752C35B1950075C4FD /* AudioNav */ = {
+			isa = PBXGroup;
+			children = (
+				E45989CF2C35B4890013B1C5 /* AudioPosition.swift */,
+				E45989D12C35B6AB0013B1C5 /* SpatialSound.swift */,
+			);
+			path = AudioNav;
+			sourceTree = "<group>";
+		};
+		E4282F762C35B1A20075C4FD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E4312F642C26D2EE006AA24C /* TaCoApp.swift */,
+				E4312F932C26D41A006AA24C /* homeView.swift */,
+				E4312F962C26E747006AA24C /* NFCView.swift */,
+				E45989CD2C35B3090013B1C5 /* NavView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E4282F772C35B1C70075C4FD /* NFCFeature */ = {
 			isa = PBXGroup;
 			children = (
 				E405E8442C30292500EB0CCB /* SpeechRecognizer.swift */,
+				E4312F992C26EB76006AA24C /* NFCReader.swift */,
+			);
+			path = NFCFeature;
+			sourceTree = "<group>";
+		};
+		E4312F582C26D2EE006AA24C = {
+			isa = PBXGroup;
+			children = (
 				E4312F632C26D2EE006AA24C /* TaCo */,
 				E4312F792C26D2EF006AA24C /* TaCoTests */,
 				E4312F832C26D2EF006AA24C /* TaCoUITests */,
@@ -105,14 +141,14 @@
 		E4312F632C26D2EE006AA24C /* TaCo */ = {
 			isa = PBXGroup;
 			children = (
-				E4312F982C26E9A9006AA24C /* Info.plist */,
-				E4312F642C26D2EE006AA24C /* TaCoApp.swift */,
-				E4312F932C26D41A006AA24C /* homeView.swift */,
-				E4312F962C26E747006AA24C /* NFCView.swift */,
-				E4312F992C26EB76006AA24C /* NFCReader.swift */,
+				E4AB609A2C36FB00005748AD /* Sounds */,
+				E4282F772C35B1C70075C4FD /* NFCFeature */,
+				E4282F762C35B1A20075C4FD /* Views */,
+				E4282F752C35B1950075C4FD /* AudioNav */,
 				E4312F952C26D611006AA24C /* TaCo.entitlements */,
 				E4312F682C26D2EF006AA24C /* Assets.xcassets */,
 				E4312F6F2C26D2EF006AA24C /* TaCo.xcdatamodeld */,
+				E4312F982C26E9A9006AA24C /* Info.plist */,
 				E4312F6A2C26D2EF006AA24C /* Preview Content */,
 			);
 			path = TaCo;
@@ -141,6 +177,14 @@
 				E4312F862C26D2EF006AA24C /* TaCoUITestsLaunchTests.swift */,
 			);
 			path = TaCoUITests;
+			sourceTree = "<group>";
+		};
+		E4AB609A2C36FB00005748AD /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E4AB60982C36FAD1005748AD /* countdown.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4AB60992C36FAD1005748AD /* countdown.mp3 in Resources */,
 				E4312F6C2C26D2EF006AA24C /* Preview Assets.xcassets in Resources */,
 				E4312F692C26D2EF006AA24C /* Assets.xcassets in Resources */,
 			);
@@ -278,7 +323,10 @@
 				E4312F972C26E747006AA24C /* NFCView.swift in Sources */,
 				E4312F9A2C26EB76006AA24C /* NFCReader.swift in Sources */,
 				E4312F942C26D41A006AA24C /* homeView.swift in Sources */,
+				E45989D02C35B4890013B1C5 /* AudioPosition.swift in Sources */,
+				E45989D22C35B6AB0013B1C5 /* SpatialSound.swift in Sources */,
 				E405E8452C30292500EB0CCB /* SpeechRecognizer.swift in Sources */,
+				E45989CE2C35B3090013B1C5 /* NavView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
