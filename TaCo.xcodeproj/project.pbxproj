@@ -18,6 +18,10 @@
 		E4312F942C26D41A006AA24C /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4312F932C26D41A006AA24C /* homeView.swift */; };
 		E4312F972C26E747006AA24C /* NFCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4312F962C26E747006AA24C /* NFCView.swift */; };
 		E4312F9A2C26EB76006AA24C /* NFCReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4312F992C26EB76006AA24C /* NFCReader.swift */; };
+		E4AB60A02C41726C005748AD /* AudioNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AB609F2C41726C005748AD /* AudioNavView.swift */; };
+		E4AB60A22C417348005748AD /* SpatialEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AB60A12C417348005748AD /* SpatialEnv.swift */; };
+		E4AB60A52C4174D3005748AD /* CountDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = E4AB60A42C4174D3005748AD /* CountDown.wav */; };
+		E4AB60A92C428206005748AD /* wistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = E4AB60A82C428206005748AD /* wistle.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +58,10 @@
 		E4312F962C26E747006AA24C /* NFCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCView.swift; sourceTree = "<group>"; };
 		E4312F982C26E9A9006AA24C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E4312F992C26EB76006AA24C /* NFCReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReader.swift; sourceTree = "<group>"; };
+		E4AB609F2C41726C005748AD /* AudioNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioNavView.swift; sourceTree = "<group>"; };
+		E4AB60A12C417348005748AD /* SpatialEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialEnv.swift; sourceTree = "<group>"; };
+		E4AB60A42C4174D3005748AD /* CountDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CountDown.wav; sourceTree = "<group>"; };
+		E4AB60A82C428206005748AD /* wistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wistle.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,11 +113,12 @@
 		E4312F632C26D2EE006AA24C /* TaCo */ = {
 			isa = PBXGroup;
 			children = (
+				E4AB60A32C417457005748AD /* SoundFiles */,
+				E4AB609C2C4171FD005748AD /* Audio */,
+				E4AB609B2C4171EC005748AD /* NFC */,
 				E4312F982C26E9A9006AA24C /* Info.plist */,
 				E4312F642C26D2EE006AA24C /* TaCoApp.swift */,
 				E4312F932C26D41A006AA24C /* homeView.swift */,
-				E4312F962C26E747006AA24C /* NFCView.swift */,
-				E4312F992C26EB76006AA24C /* NFCReader.swift */,
 				E4312F952C26D611006AA24C /* TaCo.entitlements */,
 				E4312F682C26D2EF006AA24C /* Assets.xcassets */,
 				E4312F6F2C26D2EF006AA24C /* TaCo.xcdatamodeld */,
@@ -141,6 +150,33 @@
 				E4312F862C26D2EF006AA24C /* TaCoUITestsLaunchTests.swift */,
 			);
 			path = TaCoUITests;
+			sourceTree = "<group>";
+		};
+		E4AB609B2C4171EC005748AD /* NFC */ = {
+			isa = PBXGroup;
+			children = (
+				E4312F992C26EB76006AA24C /* NFCReader.swift */,
+				E4312F962C26E747006AA24C /* NFCView.swift */,
+			);
+			path = NFC;
+			sourceTree = "<group>";
+		};
+		E4AB609C2C4171FD005748AD /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				E4AB609F2C41726C005748AD /* AudioNavView.swift */,
+				E4AB60A12C417348005748AD /* SpatialEnv.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		E4AB60A32C417457005748AD /* SoundFiles */ = {
+			isa = PBXGroup;
+			children = (
+				E4AB60A82C428206005748AD /* wistle.wav */,
+				E4AB60A42C4174D3005748AD /* CountDown.wav */,
+			);
+			path = SoundFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,7 +283,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4AB60A52C4174D3005748AD /* CountDown.wav in Resources */,
 				E4312F6C2C26D2EF006AA24C /* Preview Assets.xcassets in Resources */,
+				E4AB60A92C428206005748AD /* wistle.wav in Resources */,
 				E4312F692C26D2EF006AA24C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +313,8 @@
 			files = (
 				E4312F712C26D2EF006AA24C /* TaCo.xcdatamodeld in Sources */,
 				E4312F652C26D2EE006AA24C /* TaCoApp.swift in Sources */,
+				E4AB60A22C417348005748AD /* SpatialEnv.swift in Sources */,
+				E4AB60A02C41726C005748AD /* AudioNavView.swift in Sources */,
 				E4312F972C26E747006AA24C /* NFCView.swift in Sources */,
 				E4312F9A2C26EB76006AA24C /* NFCReader.swift in Sources */,
 				E4312F942C26D41A006AA24C /* homeView.swift in Sources */,

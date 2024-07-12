@@ -23,11 +23,11 @@ struct HomeView: View {
         NavigationStack{
             VStack {
                 HStack{
-                    NavigationLink(destination: NFCView()) {
+                    NavigationLink(destination: DummyView()) {
                         Rectangle().fill(.blue)
                     }
                     
-                    NavigationLink(destination: DummyView()) {
+                    NavigationLink(destination: NavView()) {
                         Rectangle().fill(.yellow)
                     }
                 }
