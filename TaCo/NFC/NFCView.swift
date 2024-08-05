@@ -37,6 +37,7 @@ struct NFCView: View {
                 Task {
                     var nfcMsg: String = ""
                     nfcMsg = await self.speechActor.getTranscript()
+                    debugPrint("Message transcript: \(nfcMsg)")
                     AudioServicesPlayAlertSound(SystemSoundID(1322))
                     await self.speechActor.stopRecord()
                     let writer = NFCReader(delegate: self.delegate_)

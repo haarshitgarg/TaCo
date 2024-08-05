@@ -181,6 +181,15 @@ actor SpeechRecognizer: ObservableObject {
             debugPrint("Could not initialise the speech recogniser")
             return
         }
+        SFSpeechRecognizer.requestAuthorization{ status in
+            switch status {
+            case .authorized:
+                debugPrint("SF permission granted")
+                
+            default:
+                debugPrint("Default status")
+            }
+        }
         
         self.auth = SFSpeechRecognizer.authorizationStatus()
     }

@@ -2,9 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict/>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need microphone to record audio for NFC tags</string>
+	<key>NFCReaderUsageDescription</key>
+	<string>We need to scan NFC tags to read and write information </string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We use speech recognition to convert your speech to text</string>
 </dict>
 </plist>
