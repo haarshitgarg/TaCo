@@ -23,6 +23,7 @@
 		E4312F9A2C26EB76006AA24C /* NFCReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4312F992C26EB76006AA24C /* NFCReader.swift */; };
 		E44F08AE2C5FD0D000BD57F1 /* PHASE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E408F6302C5D30F5005649ED /* PHASE.framework */; };
 		E44F08B02C5FD0D800BD57F1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44F08AF2C5FD0D800BD57F1 /* AVFoundation.framework */; };
+		E4D600782C62662900963029 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D600772C62662900963029 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		E4312F982C26E9A9006AA24C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E4312F992C26EB76006AA24C /* NFCReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReader.swift; sourceTree = "<group>"; };
 		E44F08AF2C5FD0D800BD57F1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E4D600772C62662900963029 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4D600782C62662900963029 /* CoreMotion.framework in Frameworks */,
 				E44F08B02C5FD0D800BD57F1 /* AVFoundation.framework in Frameworks */,
 				E44F08AE2C5FD0D000BD57F1 /* PHASE.framework in Frameworks */,
 			);
@@ -96,6 +99,7 @@
 		E408F6262C5D0A29005649ED /* NFC */ = {
 			isa = PBXGroup;
 			children = (
+				E405E8442C30292500EB0CCB /* SpeechRecognizer.swift */,
 				E4312F962C26E747006AA24C /* NFCView.swift */,
 				E4312F992C26EB76006AA24C /* NFCReader.swift */,
 			);
@@ -105,7 +109,6 @@
 		E408F6272C5D0A48005649ED /* SpatialAudio */ = {
 			isa = PBXGroup;
 			children = (
-				E405E8442C30292500EB0CCB /* SpeechRecognizer.swift */,
 				E408F6282C5D0AA8005649ED /* SpatialView.swift */,
 				E408F62A2C5D0CF4005649ED /* SpatialAudio.swift */,
 			);
@@ -123,6 +126,7 @@
 		E408F62F2C5D30F5005649ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E4D600772C62662900963029 /* CoreMotion.framework */,
 				E44F08AF2C5FD0D800BD57F1 /* AVFoundation.framework */,
 				E408F6302C5D30F5005649ED /* PHASE.framework */,
 			);
