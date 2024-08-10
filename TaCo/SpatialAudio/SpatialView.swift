@@ -21,13 +21,13 @@ struct SpatialView: View {
                 Rectangle()
                     .fill(.blue)
             }
-            Slider(value: $x, in: -1...1){onEditing in
+            Slider(value: $x, in: -10...10){onEditing in
                 soundPlayer.updateListnerLocation(x: x, y: y, z: z)
             }
-            Slider(value: $y, in: -1...1){onEditing in
+            Slider(value: $y, in: -10...10){onEditing in
                 soundPlayer.updateListnerLocation(x: x, y: y, z: z)
             }
-            Slider(value: $z, in: -1...1){onEditing in
+            Slider(value: $z, in: -10...10){onEditing in
                 soundPlayer.updateListnerLocation(x: x, y: y, z: z)
             }
         }

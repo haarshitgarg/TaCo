@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import os
+
+let logger = Logger(subsystem: "com.harshit.taco", category: "Games")
 
 @main
 struct TaCoApp: App {

@@ -8,14 +8,23 @@
 import Foundation
 import PHASE
 import AVFoundation
+import CoreMotion
+import Spatial
 
-struct SpatialAudio {
+class SpatialAudio: NSObject, CMHeadphoneMotionManagerDelegate {
+    // PHASE engine variables
     let audioEngine: PHASEEngine
-    let audioFileURL: URL
     let listner: PHASEListener
     let source: PHASESource
     let spatialPipeline: PHASESpatialPipeline
     let spatialMixerDefinition: PHASESpatialMixerDefinition
+    var soundEvent: PHASESoundEvent? = nil
+
+    // Headphones motion variables
+    let headPhoneManager = CMHeadphoneMotionManager()
+    let positionManagerQueue = DispatchQueue(label: "postionMotionManger")
+    let positionOperationQueue = OperationQueue()
+    var updateListnerPosition: Bool = false
     
     public func updateListnerLocation(x: Float, y: Float, z: Float) {
         listner.transform.columns.3.x = x
@@ -23,91 +32,146 @@ struct SpatialAudio {
         listner.transform.columns.3.z = z
     }
     
-    init(){
-        debugPrint("Creating the engine")
-        audioEngine = PHASEEngine(updateMode: .automatic)
+    override init(){
         
-        debugPrint("Creating audio File URL")
-        audioFileURL = Bundle.main.url(forResource: "countdown", withExtension: "wav")!
-        debugPrint("Registering Sound Asset")
+        audioEngine = PHASEEngine(updateMode: .automatic)
+        audioEngine.unitsPerMeter = 1
+        
+        // Registering sound asset
+        let audioFileURL = Bundle.main.url(forResource: "countdown", withExtension: "wav")!
         try! audioEngine.assetRegistry.registerSoundAsset(url: audioFileURL, identifier: "countdown", assetType: .resident, channelLayout: nil, normalizationMode: .dynamic)
         
         // Create a Spatial Pipeline.
-        debugPrint("Creating the spatial pipeline")
         let spatialPipelineOptions: PHASESpatialPipeline.Flags = [.directPathTransmission, .lateReverb]
         spatialPipeline = PHASESpatialPipeline(flags: spatialPipelineOptions)!
         spatialPipeline.entries[PHASESpatialCategory.lateReverb]!.sendLevel = 0.1;
         audioEngine.defaultReverbPreset = .mediumRoom
         
-        // Create a Spatial Mixer with the Spatial Pipeline.
-        debugPrint("Creating the spatial pipeline mixer")
+        // Create a Spatial Mixer
         spatialMixerDefinition = PHASESpatialMixerDefinition(spatialPipeline: spatialPipeline)
-
-        // Set the Spatial Mixer's Distance Model.
-        debugPrint("Creating Distance Model")
         let distanceModelParameters = PHASEGeometricSpreadingDistanceModelParameters()
         distanceModelParameters.fadeOutParameters = PHASEDistanceModelFadeOutParameters(cullDistance: 10.0)
         distanceModelParameters.rolloffFactor = 2
         spatialMixerDefinition.distanceModelParameters = distanceModelParameters
         
-        debugPrint("Setting the sampler Node definition")
+        // Registering a Spatial sound event
         let samplerNodeDefinition = PHASESamplerNodeDefinition(soundAssetIdentifier: "countdown", mixerDefinition:spatialMixerDefinition)
-
-        // Set the Sampler Node's Playback Mode to Looping.
         samplerNodeDefinition.playbackMode = .looping
-
-        // Set the Sampler Node's Calibration Mode to Relative SPL and Level to 12 dB.
         samplerNodeDefinition.setCalibrationMode(calibrationMode: .relativeSpl, level: 12)
-
-        // Set the Sampler Node's Cull Option to Sleep.
         samplerNodeDefinition.cullOption = .sleepWakeAtRealtimeOffset;
-
-        // Register a Sound Event Asset with the Engine named "drumEvent".
         try! audioEngine.assetRegistry.registerSoundEventAsset(rootNode: samplerNodeDefinition, identifier: "countdownEvent")
         
-        debugPrint("Creating listner")
+
+        // Creating a listner
         listner = PHASEListener(engine: audioEngine)
         listner.transform = matrix_identity_float4x4
-        
         try! audioEngine.rootObject.addChild(listner)
         
         // Create an Icosahedron Mesh.
-        debugPrint("Creating a mesh and a shape")
-        let mesh = MDLMesh.newIcosahedron(withRadius: 0.0142, inwardNormals: false, allocator:nil)
+        let mesh = MDLMesh.newIcosahedron(withRadius: 0.142, inwardNormals: false, allocator:nil)
 
         // Create a Shape from the Icosahedron Mesh.
         let shape = PHASEShape(engine: audioEngine, mesh: mesh)
 
         // Create a Volumetric Source from the Shape.
-        debugPrint("Creating a spatial spherical source")
         source = PHASESource(engine: audioEngine, shapes: [shape])
-
-        // Translate the Source 2 meters in front of the Listener and rotated back toward the Listener.
-        var sourceTransform = simd_float4x4()
-        sourceTransform.columns.0 = simd_make_float4(-1.0, 0.0, 0.0, 0.0)
-        sourceTransform.columns.1 = simd_make_float4(0.0, 1.0, 0.0, 0.0)
-        sourceTransform.columns.2 = simd_make_float4(0.0, 0.0, -1.0, 0.0)
-        sourceTransform.columns.3 = simd_make_float4(0.0, 0.0, 0.0, 1.0)
-        source.transform = sourceTransform;
-
-        // Attach the Source to the Engine's Scene Graph.
-        // This actives the Listener within the simulation.
+        source.transform = matrix_identity_float4x4;
+        source.transform.columns.3.z = -6
         try! audioEngine.rootObject.addChild(source)
+        try! audioEngine.start()
+
+        super.init()
+        
+        self.headphoneMotionConfig()
     }
     
     func playSpatialSound() {
-        debugPrint("Playing the spatial sound")
+        updateListnerPosition.toggle()
         
-        // Associate the Source and Listener with the Spatial Mixer in the Sound Event.
-        let mixerParameters = PHASEMixerParameters()
-        mixerParameters.addSpatialMixerParameters(identifier: spatialMixerDefinition.identifier, source: source, listener: listner)
-
-
-        let soundEvent = try! PHASESoundEvent(engine: audioEngine, assetIdentifier: "countdownEvent", mixerParameters: mixerParameters)
+        if updateListnerPosition {
+            
+            headPhoneManager.startDeviceMotionUpdates(to: positionOperationQueue, withHandler: headphoneMotionHandler)
+            
+            logger.info("Playing the sound")
+            // Associate the Source and Listener with the Spatial Mixer in the Sound Event.
+            let mixerParameters = PHASEMixerParameters()
+            mixerParameters.addSpatialMixerParameters(identifier: spatialMixerDefinition.identifier, source: source, listener: listner)
+            soundEvent = try! PHASESoundEvent(engine: audioEngine, assetIdentifier: "countdownEvent", mixerParameters: mixerParameters)
+            
+            soundEvent?.start()
+        }
+        else {
+            headPhoneManager.stopDeviceMotionUpdates()
+            logger.info("Stopping the sound")
+            soundEvent?.stopAndInvalidate()
+        }
         
-        try! audioEngine.start()
-        
-        soundEvent.start()
     }
     
+}
+
+extension SpatialAudio {
+    private func headphoneMotionHandler(manager: CMDeviceMotion?, error: Error?) {
+        logger.info("Handler called")
+        guard let manager = manager else {
+            logger.info("Manager is nil")
+            return
+        }
+        
+        let pitch = manager.attitude.pitch
+        logger.info("Pitch of the device, \(pitch)")
+        
+        let roll = manager.attitude.roll
+        logger.info("Roll of the device, \(roll)")
+        
+        let yaw = manager.attitude.yaw
+        logger.info("Yaw of the device, \(yaw)")
+        
+        
+        let position = simd_float3(x: listner.transform.columns.3.x, y: listner.transform.columns.3.y, z: listner.transform.columns.3.z)
+        var rotationMatrix = simd_float3x3.init()
+        rotationMatrix.columns.0.x = Float(manager.attitude.rotationMatrix.m11)
+        rotationMatrix.columns.0.y = Float(manager.attitude.rotationMatrix.m21)
+        rotationMatrix.columns.0.z = Float(manager.attitude.rotationMatrix.m31)
+        
+        rotationMatrix.columns.1.x = Float(manager.attitude.rotationMatrix.m12)
+        rotationMatrix.columns.1.y = Float(manager.attitude.rotationMatrix.m22)
+        rotationMatrix.columns.1.z = Float(manager.attitude.rotationMatrix.m32)
+        
+        rotationMatrix.columns.2.x = Float(manager.attitude.rotationMatrix.m13)
+        rotationMatrix.columns.2.y = Float(manager.attitude.rotationMatrix.m23)
+        rotationMatrix.columns.2.z = Float(manager.attitude.rotationMatrix.m33)
+        
+        var adjustMatrix = simd_float3x3.init(0)
+        adjustMatrix.columns.0.x = 1
+        adjustMatrix.columns.1.z = 1
+        adjustMatrix.columns.2.y = -1
+        
+        
+        let final_matrix = simd_quatf(adjustMatrix*rotationMatrix)
+        debugPrint(final_matrix)
+        
+        let spatial_position = Pose3D.init(position: position, rotation: final_matrix)
+        
+        listner.transform = simd_float4x4(spatial_position)
+        
+    }
+    
+    private func headphoneMotionConfig() {
+        headPhoneManager.delegate = self
+        if headPhoneManager.isDeviceMotionAvailable {
+            logger.info("Starting the head phone motion updates")
+        }
+        else {
+            logger.info("Headphone motion is not available")
+        }
+    }
+    
+    public func headphoneMotionManagerDidConnect(_ manager: CMHeadphoneMotionManager) {
+        logger.info("HeadphoneMotionManageerDidConnect function is called")
+    }
+    
+    public func headphoneMotionManagerDidDisconnect(_ manager: CMHeadphoneMotionManager) {
+        logger.info("HeadphoneMotionManageerDidDisconnect function is called")
+    }
 }
