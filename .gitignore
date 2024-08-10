@@ -1,0 +1,29 @@
+# Xcode
+.DS_Store
+build/
+DerivedData/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdatad
+*.moved-aside
+*.xcuserstate
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Swift Package Manager
+/.build/
+/Packages/
+
+# Carthage
+Carthage/Build/
+
+# Other
+*.swp
+*.swo
+*.idea/
+*.sublime-workspace
+*.sublime-project
+*.env
+
