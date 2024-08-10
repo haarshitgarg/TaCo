@@ -1,10 +1,12 @@
 # Xcode
 .DS_Store
+TaCo.xcodepoj/
 build/
 DerivedData/
+xcuserdata/
 *.xcworkspace
 *.xcuserstate
-*.xcuserdatad
+*.xcuserdata
 *.moved-aside
 *.xcuserstate
 
