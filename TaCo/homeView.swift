@@ -31,7 +31,7 @@ struct HomeView: View {
                     }
                 }
                 HStack{
-                    NavigationLink(destination: DummyView()) {
+                    NavigationLink(destination: HeadTrackingView()) {
                         Rectangle().fill(.orange)
                     }
                     NavigationLink(destination: DummyView()) {

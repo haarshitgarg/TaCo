@@ -21,6 +21,9 @@ struct SpatialView: View {
                 Rectangle()
                     .fill(.blue)
             }
+            Button(action: soundPlayer.rotateTheSource) {
+                Rectangle().fill(.clear)
+            }
             Slider(value: $x, in: -10...10){onEditing in
                 soundPlayer.updateListnerLocation(x: x, y: y, z: z)
             }
