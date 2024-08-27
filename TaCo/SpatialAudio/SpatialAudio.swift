@@ -61,6 +61,19 @@ class SpatialAudio: NSObject, CMHeadphoneMotionManagerDelegate {
         samplerNodeDefinition.cullOption = .sleepWakeAtRealtimeOffset;
         try! audioEngine.assetRegistry.registerSoundEventAsset(rootNode: samplerNodeDefinition, identifier: "countdownEvent")
         
+        let world_reference_frame = CMAttitudeReferenceFrame.xMagneticNorthZVertical
+        let motion_manager = CMMotionManager()
+        motion_manager.startMagnetometerUpdates()
+        motion_manager.startDeviceMotionUpdates(using: world_reference_frame)
+        let rotation_matrix = motion_manager.deviceMotion!.attitude.rotationMatrix
+        
+        var world_transform = simd_float4x4()
+        world_transform = simd_float4x4(rows: [
+                simd_float4(Float(rotation_matrix.m11), Float(rotation_matrix.m12), Float(rotation_matrix.m13), 0),
+                simd_float4(Float(rotation_matrix.m21), Float(rotation_matrix.m22), Float(rotation_matrix.m23), 0),
+                simd_float4(Float(rotation_matrix.m31), Float(rotation_matrix.m32), Float(rotation_matrix.m33), 0),
+                simd_float4(0, 0, 0, 1)
+        ])
 
         // Creating a listner
         listner = PHASEListener(engine: audioEngine)
@@ -75,7 +88,7 @@ class SpatialAudio: NSObject, CMHeadphoneMotionManagerDelegate {
 
         // Create a Volumetric Source from the Shape.
         source = PHASESource(engine: audioEngine, shapes: [shape])
-        source.transform = matrix_identity_float4x4;
+        source.transform = world_transform;
         source.transform.columns.3.z = -6
         try! audioEngine.rootObject.addChild(source)
         try! audioEngine.start()
