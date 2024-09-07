@@ -24,6 +24,8 @@
 		E44F08AE2C5FD0D000BD57F1 /* PHASE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E408F6302C5D30F5005649ED /* PHASE.framework */; };
 		E44F08B02C5FD0D800BD57F1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44F08AF2C5FD0D800BD57F1 /* AVFoundation.framework */; };
 		E4D600782C62662900963029 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D600772C62662900963029 /* CoreMotion.framework */; };
+		E4ED92542C8C289600F050E6 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED92532C8C289600F050E6 /* ARView.swift */; };
+		E4ED92562C8C2B5A00F050E6 /* ARController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED92552C8C2B5A00F050E6 /* ARController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		E4312F992C26EB76006AA24C /* NFCReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReader.swift; sourceTree = "<group>"; };
 		E44F08AF2C5FD0D800BD57F1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E4D600772C62662900963029 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		E4ED92532C8C289600F050E6 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
+		E4ED92552C8C2B5A00F050E6 /* ARController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,7 @@
 		E4312F632C26D2EE006AA24C /* TaCo */ = {
 			isa = PBXGroup;
 			children = (
+				E4ED92522C8C287100F050E6 /* ARView */,
 				E408F62E2C5D1036005649ED /* AudioFiles */,
 				E408F6272C5D0A48005649ED /* SpatialAudio */,
 				E408F6262C5D0A29005649ED /* NFC */,
@@ -194,6 +199,15 @@
 				E4312F862C26D2EF006AA24C /* TaCoUITestsLaunchTests.swift */,
 			);
 			path = TaCoUITests;
+			sourceTree = "<group>";
+		};
+		E4ED92522C8C287100F050E6 /* ARView */ = {
+			isa = PBXGroup;
+			children = (
+				E4ED92532C8C289600F050E6 /* ARView.swift */,
+				E4ED92552C8C2B5A00F050E6 /* ARController.swift */,
+			);
+			path = ARView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,7 +343,9 @@
 			files = (
 				E408F6292C5D0AA8005649ED /* SpatialView.swift in Sources */,
 				E4312F712C26D2EF006AA24C /* TaCo.xcdatamodeld in Sources */,
+				E4ED92542C8C289600F050E6 /* ARView.swift in Sources */,
 				E4312F652C26D2EE006AA24C /* TaCoApp.swift in Sources */,
+				E4ED92562C8C2B5A00F050E6 /* ARController.swift in Sources */,
 				E4312F972C26E747006AA24C /* NFCView.swift in Sources */,
 				E4312F9A2C26EB76006AA24C /* NFCReader.swift in Sources */,
 				E408F62B2C5D0CF4005649ED /* SpatialAudio.swift in Sources */,
@@ -506,10 +522,13 @@
 				INFOPLIST_FILE = TaCo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NFCReaderUsageDescription = "This app uses NFC to read nearby tags";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "We need to scan NFC tags to read and write information ";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses bluetooth for audio";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use camera to locate and identify the objects in the enviroment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "To record your audio for getting description";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone to record audio for NFC tags";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Detect headphones motion to accurately identify head position";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We use speech recognition to convert your speech to text";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -545,10 +564,13 @@
 				INFOPLIST_FILE = TaCo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NFCReaderUsageDescription = "This app uses NFC to read nearby tags";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "We need to scan NFC tags to read and write information ";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses bluetooth for audio";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use camera to locate and identify the objects in the enviroment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "To record your audio for getting description";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone to record audio for NFC tags";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Detect headphones motion to accurately identify head position";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We use speech recognition to convert your speech to text";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

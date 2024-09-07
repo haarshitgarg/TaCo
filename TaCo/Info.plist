@@ -8,13 +8,5 @@
 	<array>
 		<dict/>
 	</array>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>We need microphone to record audio for NFC tags</string>
-	<key>NFCReaderUsageDescription</key>
-	<string>We need to scan NFC tags to read and write information </string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>We use speech recognition to convert your speech to text</string>
-	<key>NSMotionUsageDescription</key>
-	<string>Detect headphones motion to accurately identify head position</string>
 </dict>
 </plist>

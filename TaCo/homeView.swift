@@ -34,7 +34,7 @@ struct HomeView: View {
                     NavigationLink(destination: DummyView()) {
                         Rectangle().fill(.orange)
                     }
-                    NavigationLink(destination: DummyView()) {
+                    NavigationLink(destination: ARView()) {
                         Rectangle().fill(.purple)
                     }
                 }
